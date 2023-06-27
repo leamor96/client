@@ -10,7 +10,7 @@ import { BsPencil, BsTrash } from "react-icons/bs";
 import Swal from "sweetalert2";
 import { deleteProCard } from "../../../features/cards/proCardSlice";
 import axios from "axios";
-import { API_URL } from "../../../env";
+import { API_URL } from "../../../.env";
 
 interface CardDetailsParams extends Record<string, string | undefined> {
   id: string;

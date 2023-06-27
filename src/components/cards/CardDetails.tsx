@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 import { deleteCard } from "../../features/cards/cardSlice";
 import axios from "axios";
 import LoadingSpinner from "../utils/LoadingSpinner";
-import { API_URL } from "../../env";
+import { API_URL } from "../../.env";
 
 interface CardDetailsParams extends Record<string, string | undefined> {
   id: string;

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ProLensData } from "../../@types";
 import FavAlert from "../../components/utils/FavAlert";
-import { API_URL } from "../../env";
+import { API_URL } from "../../.env";
 
 interface ProCardState {
   proCards: ProLensData[];

@@ -5,7 +5,7 @@ import { LensData } from "../../../@types";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./AdminOnly.css";
-import { API_URL } from "../../../env";
+import { API_URL } from "../../../.env";
 
 const EditLens: React.FC = () => {
   const location = useLocation();

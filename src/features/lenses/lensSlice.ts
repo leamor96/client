@@ -3,7 +3,7 @@ import axios from "axios";
 import { submitFormDataToServer } from "../../services/lens.service";
 import { AppThunk, RootState } from "../../app/store";
 import { LensFormData, LensOptions } from "../../@types";
-import { API_URL } from "../../env";
+import { API_URL } from "../../.env";
 
 interface LensState {
   lensOptions: LensOptions;

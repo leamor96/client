@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { LensData } from "../../@types";
-import { API_URL } from "../../env";
+import { API_URL } from "../../.env";
 import FavAlert from "../../components/utils/FavAlert";
 
 interface CardState {

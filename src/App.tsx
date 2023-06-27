@@ -17,7 +17,6 @@ import Footer from "./components/footer/Footer";
 import ProLensOptions from "./components/lenses/ProLensOptions";
 import ProCardList from "./components/cards/pro-cards/ProCardList";
 import Lenses from "./routes/Lenses";
-import jwt_decode from "jwt-decode";
 import CardDetails from "./components/cards/CardDetails";
 import EditLens from "./components/lenses/admin-only/EditLens";
 import ProCardDetails from "./components/cards/pro-cards/ProCardDetails";

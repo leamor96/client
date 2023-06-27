@@ -11,7 +11,7 @@ import "./Cards.css";
 import { useNavigate } from "react-router-dom";
 import Search from "../utils/Search";
 import { MdSearch } from "react-icons/md";
-import { API_URL } from "../../env";
+import { API_URL } from "../../.env";
 
 
 const CardList: React.FC = () => {   

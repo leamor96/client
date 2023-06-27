@@ -1,6 +1,6 @@
 import axios from "axios";
 import { LensFormData, LensProFormData } from "../@types";
-import { API_URL } from "../env";
+import { API_URL } from "../.env";
 
 const formUrl = `${API_URL}/submit-form`;
 const proFormUrl = `${API_URL}/submit-pro-form`;

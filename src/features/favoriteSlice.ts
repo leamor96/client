@@ -2,7 +2,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { LensData } from "../@types";
 import { RootState } from "../app/store";
-import { API_URL } from "../env";
+import { API_URL } from "../.env";
 
 interface FavoritesState {
   favorites: LensData[]; 

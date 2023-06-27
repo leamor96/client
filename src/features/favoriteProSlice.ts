@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ProLensData } from "../@types";
-import { API_URL } from "../env";
+import { API_URL } from "../.env";
 
 interface FavoriteProState {
   favoritesPro: ProLensData[]; 
