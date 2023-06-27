@@ -1,8 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
 import { LensData } from "../../@types";
-import { API_URL } from "../../.env";
 import FavAlert from "../../components/utils/FavAlert";
+import axios from "../../api/axios";
 
 interface CardState {
   cards: LensData[];
@@ -19,7 +18,7 @@ const initialState: CardState = {
 };
 
 export const fetchCards = createAsyncThunk("card/fetchCards", async () => {
-  const response = await axios.get<LensData[]>(`${API_URL}/lenses`);
+  const response = await axios.get<LensData[]>("/lenses");
   return response.data;
 });
 
@@ -59,7 +58,7 @@ const cardSlice = createSlice({
         state.cards = updatedCards;
         axios
           .post(
-            `${API_URL}/lenses/${userId}/favorite/${lensId}`,
+            `/lenses/${userId}/favorite/${lensId}`,
             {},
             {
               headers: {
@@ -97,7 +96,7 @@ const cardSlice = createSlice({
 
         axios
           .delete(
-            `${API_URL}/lenses/${userId}/delete-from-favorite/${lensId}`,
+            `/lenses/${userId}/delete-from-favorite/${lensId}`,
             {
               headers: {
                 Authorization: `${token}`,

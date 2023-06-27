@@ -5,13 +5,12 @@ import Card from "./Card";
 import { AppDispatch, RootState } from "../../app/store";
 import { LensData } from "../../@types";
 import Modal from "react-modal";
-import axios from "axios";
 import AuthContext from "../../context/AuthContext";
 import "./Cards.css";
 import { useNavigate } from "react-router-dom";
 import Search from "../utils/Search";
 import { MdSearch } from "react-icons/md";
-import { API_URL } from "../../.env";
+import axios from "../../api/axios";
 
 
 const CardList: React.FC = () => {   
@@ -58,11 +57,7 @@ const CardList: React.FC = () => {
     e.preventDefault();
 
     try {
-      await axios.post(`${API_URL}/lenses`, newLens, {
-        headers: {
-          Authorization: `${token}`,
-        },
-      });
+      await axios.post('/lenses', newLens);
       openModal();
       dispatch(fetchCards());
       navigate(-1);

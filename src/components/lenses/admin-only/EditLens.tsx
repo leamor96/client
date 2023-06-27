@@ -3,9 +3,8 @@ import { useDispatch } from "react-redux";
 import { editCard } from "../../../features/cards/cardSlice";
 import { LensData } from "../../../@types";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 import "./AdminOnly.css";
-import { API_URL } from "../../../.env";
+import axios from "../../../api/axios";
 
 const EditLens: React.FC = () => {
   const location = useLocation();
@@ -31,7 +30,7 @@ const EditLens: React.FC = () => {
   const handleSubmit = async () => {
     try {
       await axios.put(
-        `${API_URL}/lenses/${editedLens._id}`,
+        `/lenses/${editedLens._id}`,
         editedLens,
         {
           headers: {

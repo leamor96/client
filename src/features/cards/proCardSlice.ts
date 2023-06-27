@@ -1,12 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
 import { ProLensData } from "../../@types";
 import FavAlert from "../../components/utils/FavAlert";
-import { API_URL } from "../../.env";
+import axios from "../../api/axios";
 
 interface ProCardState {
   proCards: ProLensData[];
-  favoritesPro: string[]; 
+  favoritesPro: string[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null | undefined;
 }
@@ -21,7 +20,7 @@ const initialState: ProCardState = {
 export const fetchProCards = createAsyncThunk(
   "proCard/fetchProCards",
   async () => {
-    const response = await axios.get<ProLensData[]>(`${API_URL}/pro-lenses`);
+    const response = await axios.get<ProLensData[]>("/pro-lenses");
     return response.data;
   }
 );
@@ -48,12 +47,11 @@ const proCardSlice = createSlice({
     toggleFavorite: (state, action: PayloadAction<ProLensData>): void => {
       const proLens = action.payload;
       const proLensId = proLens._id;
-      const token = localStorage.getItem("token");
       const userId = localStorage.getItem("userId");
       const index = state.proCards.findIndex((c) => c._id === proLensId);
 
       if (index !== -1) {
-        const updatedCardPro = [...state.proCards]; 
+        const updatedCardPro = [...state.proCards];
         updatedCardPro[index] = {
           ...updatedCardPro[index],
           isFavorite: !updatedCardPro[index].isFavorite,
@@ -64,19 +62,10 @@ const proCardSlice = createSlice({
         state.proCards = updatedCardPro;
 
         axios
-          .post(
-            `${API_URL}/pro-lenses/${userId}/favorite/${proLensId}`,
-            {},
-            {
-              headers: {
-                Authorization: `${token}`,
-              },
-            }
-          )
-          .then((response) => {
-          })
+          .post(`/pro-lenses/${userId}/favorite/${proLensId}`)
+          .then((response) => {})
           .catch((error) => {
-             FavAlert({ title: error.response?.data });
+            FavAlert({ title: error.response?.data });
             console.error("Failed to update favorite status", error);
             state.proCards[index].isFavorite = !favoriteProStatus;
           });
@@ -85,7 +74,6 @@ const proCardSlice = createSlice({
     toggleUnFavorite: (state, action: PayloadAction<ProLensData>): void => {
       const proLens = action.payload;
       const proLensId = proLens._id;
-      const token = localStorage.getItem("token");
       const userId = localStorage.getItem("userId");
 
       const index = state.proCards.findIndex((c) => c._id === proLensId);
@@ -101,16 +89,8 @@ const proCardSlice = createSlice({
         state.proCards = updatedCardPro;
 
         axios
-          .delete(
-            `${API_URL}/pro-lenses/${userId}/delete-from-pro-favorite/${proLensId}`,
-            {
-              headers: {
-                Authorization: `${token}`,
-              },
-            }
-          )
-          .then((response) => {
-          })
+          .delete(`/pro-lenses/${userId}/delete-from-pro-favorite/${proLensId}`)
+          .then((response) => {})
           .catch((error) => {
             FavAlert({ title: error.response?.data });
             console.error("Failed to update favorite status", error);
@@ -135,7 +115,12 @@ const proCardSlice = createSlice({
   },
 });
 
-export const { addProCard, deleteProCard, editProCard, toggleFavorite,toggleUnFavorite } =
-  proCardSlice.actions;
+export const {
+  addProCard,
+  deleteProCard,
+  editProCard,
+  toggleFavorite,
+  toggleUnFavorite,
+} = proCardSlice.actions;
 
 export default proCardSlice.reducer;

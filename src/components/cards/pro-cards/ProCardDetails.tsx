@@ -5,12 +5,11 @@ import { ProLensData } from "../../../@types";
 import { RootState } from "../../../app/store";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../../context/AuthContext";
-import "./ProCards.css"
+import "./ProCards.css";
 import { BsPencil, BsTrash } from "react-icons/bs";
 import Swal from "sweetalert2";
 import { deleteProCard } from "../../../features/cards/proCardSlice";
-import axios from "axios";
-import { API_URL } from "../../../.env";
+import axios from "../../../api/axios";
 
 interface CardDetailsParams extends Record<string, string | undefined> {
   id: string;
@@ -22,12 +21,10 @@ const ProCardDetails: React.FC = () => {
     state.proCard.proCards.find((card) => card._id === id)
   );
   const dispatch = useDispatch();
-  const {isAdmin} = useContext(AuthContext);
-  const token = localStorage.getItem("token");
+  const { isAdmin } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-  }, [id]);
+  useEffect(() => {}, [id]);
 
   if (!proLens) {
     return <div className="bg-dark text-light p-5">Loading...</div>;
@@ -59,12 +56,12 @@ const ProCardDetails: React.FC = () => {
           >
             Back
           </button>
-          { isAdmin &&(
+          {isAdmin && (
             <div className="delete-edit-buttons">
               <button
                 className="btn admin-btn btn-secondary mt-0"
                 onClick={() => {
-                  navigate(`/edit-pro/${proLens._id}`, { state: { proLens }});
+                  navigate(`/edit-pro/${proLens._id}`, { state: { proLens } });
                 }}
               >
                 <BsPencil />
@@ -83,21 +80,13 @@ const ProCardDetails: React.FC = () => {
                   }).then((result) => {
                     if (result.isConfirmed) {
                       dispatch(deleteProCard(proLens._id));
-                        axios
-                          .delete(
-                            `${API_URL}/pro-lenses/${proLens._id}`,
-                            {
-                              headers: {
-                                Authorization: `${token}`,
-                              },
-                            }
-                          )
-                          .then((response) => {
-                          })
-                          .catch((error) => {
-                            console.error("Failed to delete the lens", error);
-                          });
-                        navigate(-1);
+                      axios
+                        .delete(`/pro-lenses/${proLens._id}`)
+                        .then((response) => {})
+                        .catch((error) => {
+                          console.error("Failed to delete the lens", error);
+                        });
+                      navigate(-1);
                       Swal.fire({
                         title: "Deleted!",
                         icon: "success",
@@ -117,7 +106,7 @@ const ProCardDetails: React.FC = () => {
                 <BsTrash />
               </button>
             </div>
-         ) }
+          )}
         </div>
       </div>
     </div>

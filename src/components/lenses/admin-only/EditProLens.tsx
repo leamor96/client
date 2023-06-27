@@ -3,9 +3,8 @@ import { useDispatch } from "react-redux";
 import { editProCard } from "../../../features/cards/proCardSlice";
 import { ProLensData } from "../../../@types";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 import "./AdminOnly.css";
-import { API_URL } from "../../../.env";
+import axios from "../../../api/axios";
 
 const EditProLens: React.FC = () => {
   const location = useLocation();
@@ -30,7 +29,7 @@ const EditProLens: React.FC = () => {
   const handleSubmit = async () => {
     try {
       await axios.put(
-        `${API_URL}/pro-lenses/${editedProLens._id}`,
+        `/pro-lenses/${editedProLens._id}`,
         editedProLens,
         {
           headers: {

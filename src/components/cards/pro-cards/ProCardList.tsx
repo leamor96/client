@@ -6,10 +6,10 @@ import { AppDispatch, RootState } from "../../../app/store";
 import { ProLensData } from "../../../@types";
 import AuthContext from "../../../context/AuthContext";
 import Modal from "react-modal";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Search from "../../utils/Search";
 import { MdSearch } from "react-icons/md";
+import axios from "../../../api/axios";
 
 const ProCardList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -55,11 +55,7 @@ const ProCardList: React.FC = () => {
 
     try {
       // Make a POST request to create the new lens
-      await axios.post("http://localhost:3001/api/pro-lenses", newProLens, {
-        headers: {
-          Authorization: `${token}`,
-        },
-      });
+      await axios.post("/pro-lenses", newProLens);
       // Close the modal and update the list of lenses
       openModal();
       dispatch(fetchProCards());

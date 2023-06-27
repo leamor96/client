@@ -9,9 +9,8 @@ import "./Cards.css";
 import { BsPencil, BsTrash } from "react-icons/bs";
 import Swal from "sweetalert2";
 import { deleteCard } from "../../features/cards/cardSlice";
-import axios from "axios";
 import LoadingSpinner from "../utils/LoadingSpinner";
-import { API_URL } from "../../.env";
+import axios from "../../api/axios";
 
 interface CardDetailsParams extends Record<string, string | undefined> {
   id: string;
@@ -85,7 +84,7 @@ const CardDetails: React.FC = () => {
                       dispatch(deleteCard(lens._id));
                       axios
                         .delete(
-                          `${API_URL}/lenses/${lens._id}`,
+                          `/lenses/${lens._id}`,
                           {
                             headers: {
                               Authorization: `${token}`,

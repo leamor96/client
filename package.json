@@ -17,7 +17,6 @@
     "cdbreact": "^1.5.17",
     "crypto-browserify": "^3.12.0",
     "dotenv": "^16.3.1",
-    "env-cmd": "^10.1.0",
     "formik": "^2.2.9",
     "jwt-decode": "^3.1.2",
     "lottie-react": "^2.4.0",
@@ -45,7 +44,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:deploy": "npm run build && firebase deploy"
   },
   "eslintConfig": {
     "extends": [
@@ -64,5 +64,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0"
   }
 }
