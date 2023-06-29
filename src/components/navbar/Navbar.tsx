@@ -1,24 +1,26 @@
 import { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { NavDropdown } from "react-bootstrap";
 import AuthContext from "../../context/AuthContext";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import { GiMicroscopeLens, GiSpectacleLenses } from "react-icons/gi";
 import { MdFavorite } from "react-icons/md";
-import "./Navbar.css"
-
+import "./Navbar.css";
 
 const Navabar = () => {
-  const { isLoggedIn, logout } = useContext(AuthContext);
-  const navigate= useNavigate()
+  const { isLoggedIn, logout, username } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const handleLogout = async () => {
     try {
       await logout();
-      navigate(`/`)
+      navigate(`/`);
     } catch (error) {
       console.error("Logout failed", error);
     }
   };
+
   return (
     <>
       <Navbar bg="dark" variant="dark">
@@ -45,6 +47,19 @@ const Navabar = () => {
             </NavLink>
           )}
           {isLoggedIn && (
+            <NavDropdown
+              title={username}
+              id="user-dropdown"
+              className="nav-link text-light"
+            >
+              <NavDropdown.Item
+                onClick={handleLogout}
+              >
+                Logout
+              </NavDropdown.Item>
+            </NavDropdown>
+          )}
+          {isLoggedIn && (
             <NavLink to="/lenses" className="nav-link text-light">
               <GiSpectacleLenses className="lensesIcon" />
             </NavLink>
@@ -53,11 +68,6 @@ const Navabar = () => {
             <NavLink to="/favorites" className="nav-link text-light">
               <MdFavorite className="favIcon" />
             </NavLink>
-          )}
-          {isLoggedIn && (
-            <button onClick={handleLogout} className="btn btn-warning logout">
-              Logout
-            </button>
           )}
         </Container>
       </Navbar>

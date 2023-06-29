@@ -23,8 +23,8 @@ import ProCardDetails from "./components/cards/pro-cards/ProCardDetails";
 import EditProLens from "./components/lenses/admin-only/EditProLens";
 
 function App() {
-  const { isLoggedIn,isAdmin} = useContext(AuthContext);
- 
+  const { isLoggedIn, isAdmin } = useContext(AuthContext);
+
   return (
     <>
       <Navbar />
@@ -40,20 +40,12 @@ function App() {
         <Route path="/pro-lens-options" element={<ProLensOptions />} />
         {isLoggedIn && <Route path="/favorites" element={<Favorites />} />}
         {isLoggedIn && <Route path="/lenses/*" element={<Lenses />} />}
-        {isLoggedIn && (
-          <Route path="/lenses/card-list" element={<CardList />} />
-        )}
-        {isLoggedIn && (
-          <Route path="/lenses/pro-card-list" element={<ProCardList />} />
-        )}
-        {isLoggedIn && (
-          <Route path="/cards/details/:id" element={<CardDetails />} />
-        )}
-        {isLoggedIn && (
-          <Route path="/pro-cards/details/:id" element={<ProCardDetails />} />
-        )}
-        {isAdmin &&  <Route path="/edit/:id" element={<EditLens />} />}
-        {isAdmin &&  <Route path="/edit-pro/:id" element={<EditProLens />} />}
+        {isLoggedIn && <Route path="/lenses/card-list" element={<CardList />} />}
+        {isLoggedIn && <Route path="/lenses/pro-card-list" element={<ProCardList />} />}
+        {isLoggedIn && <Route path="/cards/details/:id" element={<CardDetails />} />}
+        {isLoggedIn && <Route path="/pro-cards/details/:id" element={<ProCardDetails />} />}
+        {isAdmin && <Route path="/edit/:id" element={<EditLens />} />}
+        {isAdmin && <Route path="/edit-pro/:id" element={<EditProLens />} />}
       </Routes>
       <Footer />
     </>

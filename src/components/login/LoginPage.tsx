@@ -38,7 +38,8 @@ const LoginPage = () => {
         const id = res.id;
         const favorite = res.favorite;
         const favoritePro = res.favoritePro;
-        login(username, email, token, id, favorite, favoritePro);
+        const isAdmin= res.isAdmin;
+        login(username, email, token, id, favorite, favoritePro,isAdmin);
         nav("/");
       })
       .catch((e) => {
@@ -55,7 +56,9 @@ const LoginPage = () => {
   }
   return (
     <div className="login-page">
-      <div className="login-error">{errMessage && <div>{errMessage}</div>}</div>
+      <div className="login-error">
+        {errMessage && <ErrorAlert message={errMessage} />}
+      </div>
       {isLoading && <LoadingSpinner />}
       <Formik
         initialValues={initialValues}
@@ -101,7 +104,7 @@ const LoginPage = () => {
           <div className="col-12">
             <button
               disabled={isLoading}
-              className="btn btn-warning"
+              className="btn btn-warning btn-finish"
               type="submit"
             >
               Login

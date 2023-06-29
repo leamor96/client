@@ -47,7 +47,7 @@ const EditLens: React.FC = () => {
   };
 
   return (
-    <div className="bg-dark p-3 d-flex justify-content-center">
+    <div className="bg-dark p-5 d-flex justify-content-center">
       <div className="card-details card p-2">
         <label>
           Name:

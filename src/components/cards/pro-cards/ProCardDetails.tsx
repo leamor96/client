@@ -10,6 +10,7 @@ import { BsPencil, BsTrash } from "react-icons/bs";
 import Swal from "sweetalert2";
 import { deleteProCard } from "../../../features/cards/proCardSlice";
 import axios from "../../../api/axios";
+import LoadingSpinner from "../../utils/LoadingSpinner";
 
 interface CardDetailsParams extends Record<string, string | undefined> {
   id: string;
@@ -27,17 +28,16 @@ const ProCardDetails: React.FC = () => {
   useEffect(() => {}, [id]);
 
   if (!proLens) {
-    return <div className="bg-dark text-light p-5">Loading...</div>;
+    return <div className="bg-dark text-light p-5"><LoadingSpinner/></div>;
   }
 
   return (
-    <div className="bg-dark p-3 d-flex justify-content-center">
+    <div className="bg-dark p-4 d-flex justify-content-center">
       <div className="card-details card">
         <div className="card-header">
           <div className="header-field">{proLens.name}</div>
         </div>
         <div className="bg-warning text-center lens-category">
-          {" "}
           {proLens.lensType}
         </div>
         <div className="card-body">

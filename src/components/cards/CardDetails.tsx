@@ -23,7 +23,6 @@ const CardDetails: React.FC = () => {
   );
   const dispatch = useDispatch();
   const {isAdmin} = useContext(AuthContext);
-  const token= localStorage.getItem("token")
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,7 +32,7 @@ const CardDetails: React.FC = () => {
     return <div className="bg-dark text-light p-5"><LoadingSpinner/></div>;
   }
   return (
-    <div className="bg-dark p-3 d-flex justify-content-center">
+    <div className="bg-dark p-4 d-flex justify-content-center">
       <div className="card-details card">
         <div className="card-header">
           <div className="header-field">{lens.name}</div>
@@ -84,12 +83,7 @@ const CardDetails: React.FC = () => {
                       dispatch(deleteCard(lens._id));
                       axios
                         .delete(
-                          `/lenses/${lens._id}`,
-                          {
-                            headers: {
-                              Authorization: `${token}`,
-                            },
-                          }
+                          `/lenses/${lens._id}`
                         )
                         .then((response) => {
                         })

@@ -78,7 +78,6 @@ const cardSlice = createSlice({
     toggleUnFavorite: (state, action: PayloadAction<LensData>): void => {
       const lens=action.payload;
       const lensId = lens._id;
-      const token = localStorage.getItem("token");
       const userId = localStorage.getItem("userId");
       
       const index = state.cards.findIndex((c) => c._id === lensId);
@@ -96,13 +95,7 @@ const cardSlice = createSlice({
 
         axios
           .delete(
-            `/lenses/${userId}/delete-from-favorite/${lensId}`,
-            {
-              headers: {
-                Authorization: `${token}`,
-              },
-            }
-          )
+            `/lenses/${userId}/delete-from-favorite/${lensId}`)
           .then((response) => {
           })
           .catch((error) => {

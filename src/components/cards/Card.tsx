@@ -8,8 +8,9 @@ import {
   toggleFavorite,
   toggleUnFavorite,
 } from "../../features/cards/cardSlice";
-import {  useEffect, useRef } from "react";
+import {  useContext, useEffect, useRef } from "react";
 import FavAlert from "../utils/FavAlert";
+import AuthContext from "../../context/AuthContext";
 
 interface CardProps {
   lens: LensData;
@@ -32,6 +33,7 @@ const Card: React.FC<CardProps> = ({
       state.favorite.favorites || []
   );
   const isFavorite = favorites.some((favorite) => favorite._id === lens._id);
+  const {isLoggedIn}=useContext(AuthContext)
 
   const headerRef = useRef<HTMLDivElement>(null);
   const nav = useNavigate();
@@ -78,21 +80,24 @@ const Card: React.FC<CardProps> = ({
         <p className="card-field">Plus Range: {lens.sphRange.plus}</p>
         <p className="card-field">Coating: {lens.coating}</p>
         <p className="card-field lens-price">Price: ₪{lens.price}</p>
-
-        <button
-          className="border-0 bg-transparent favorite-icon"
-          onClick={handleFavoriteToggle}
-        >
-          {isFavorite ? <MdFavorite /> : <MdOutlineFavoriteBorder />}
-        </button>
-        <button
-          className="border-0 bg-transparent text-light more-icon"
-          onClick={() => {
-            nav(`/cards/details/${lens._id}`);
-          }}
-        >
-          <CiCircleMore />
-        </button>
+        {isLoggedIn && (
+          <>
+            <button
+              className="border-0 bg-transparent favorite-icon"
+              onClick={handleFavoriteToggle}
+            >
+              {isFavorite ? <MdFavorite /> : <MdOutlineFavoriteBorder />}
+            </button>
+            <button
+              className="border-0 bg-transparent text-light more-icon"
+              onClick={() => {
+                nav(`/cards/details/${lens._id}`);
+              }}
+            >
+              <CiCircleMore />
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

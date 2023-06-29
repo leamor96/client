@@ -49,8 +49,8 @@ const RegisterPage = () => {
       .catch((e) => {
         console.log(e);
         if (e.response && e.response.data && e.response.data.message) {
-          const errorMessage = e.response.data.message;
-          const formattedErrorMessage = "Error: " + errorMessage;
+          const errMessage = e.response.data.message;
+          const formattedErrorMessage = "Error: " + errMessage;
           ErrorAlert({ message: formattedErrorMessage });
           setErrMessage(formattedErrorMessage);
         } else {
@@ -68,7 +68,7 @@ const RegisterPage = () => {
   return (
     <div className="register-page">
       <div className="register-error">
-        {errMessage && <div>{errMessage}</div>}
+        {errMessage && <ErrorAlert message={errMessage} />}
       </div>
       {isLoading && <LoadingSpinner />}
       <Formik
@@ -132,7 +132,7 @@ const RegisterPage = () => {
           <div className="col-12">
             <button
               disabled={isLoading}
-              className="btn btn-warning"
+              className="btn btn-warning btn-finish"
               type="submit"
             >
               Register
